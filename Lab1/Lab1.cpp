@@ -12,14 +12,12 @@ const int SIZE[] = { 10000, 50000, 100000 };
 const int THREADCOUNT[] = { 2, 5,10 };
 const int RANDOM = 100000;
 const int ArrayCount = 3;
-
 static int cn = 0; 
 static int numb = 0;
 
 void BubbleSort(int data[], int lenD);
 void SelectionSort(int data[], int lenD);
 void InsertionSort(int data[], int lenD);
-void QuickSort(int data[], int len);
 typedef void (*MySort) (int[], int);
 const MySort TypeSort[] = { BubbleSort,SelectionSort,InsertionSort };
 
@@ -66,51 +64,12 @@ void InsertionSort(int data[], int lenD)
         }
     }
 }
-void QuickSort(int data[], int len)
-{
-    int const lenD = len;
-    int pivot = 0;
-    int ind = lenD / 2;
-    int i, j = 0, k = 0;
-    if (lenD > 1) {
-        int* L = new int[lenD];
-        int* R = new int[lenD];
-        pivot = data[ind];
-        for (i = 0;i < lenD;i++) {
-            if (i != ind) {
-                if (data[i] < pivot) {
-                    L[j] = data[i];
-                    j++;
-                }
-                else {
-                    R[k] = data[i];
-                    k++;
-                }
-            }
-        }
-        QuickSort(L, j);
-        QuickSort(R, k);
-        for (int cnt = 0;cnt < lenD;cnt++) {
-            if (cnt < j) {
-                data[cnt] = L[cnt];;
-            }
-            else if (cnt == j) {
-                data[cnt] = pivot;
-            }
-            else {
-                data[cnt] = R[cnt - (j + 1)];
-            }
-        }
-    }
-}
 void SortParallel(int data[], int lenD)
 {
     if (THREADCOUNT[numb] >= lenD || THREADCOUNT[numb]==1|| THREADCOUNT[numb]<=0) {
         TypeSort[cn % 3](data, lenD);
         return;
     }
-       
-
     vector<int> *thread = new vector<int>[THREADCOUNT[numb]];
     int rnd = RANDOM / THREADCOUNT[numb];
     for (size_t i = 0; i < THREADCOUNT[numb]; i++)
