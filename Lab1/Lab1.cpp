@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <stdio.h>
 #include <string>
 #include <random>
 #include <ctime>
@@ -104,7 +105,7 @@ void QuickSort(int data[], int len)
 }
 void SortParallel(int data[], int lenD)
 {
-    if (THREADCOUNT[numb] >= lenD) {
+    if (THREADCOUNT[numb] >= lenD || THREADCOUNT[numb]==1|| THREADCOUNT[numb]<=0) {
         TypeSort[cn % 3](data, lenD);
         return;
     }
@@ -185,7 +186,6 @@ int main()
     float TimeAllPar[27];
     int TimeAllPosNow = 0;
     int TimeAllParNow = 0;
-    bool par = false;
     for (int g = 0; g < 3; g++)
     {
         numb = g;
@@ -211,7 +211,7 @@ int main()
 
             Completion(StaticArray, StaticArraySort, SIZE[f]);
             InsertionSort(StaticArraySort, SIZE[f]);
-            if(f==0)
+            if(g==0)
             for (int i = 0; i < ArrayCount; i++)
             {
                 cn = i;
@@ -305,7 +305,30 @@ int main()
 
         }
     }
-  
+    printf("\n|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|\n",
+        " ", "10К-1", "50К-1", "100К-1", "10К-2", "50К-2", "100К-2", "10К-5", "50К-5", "100К-5", "10К-10", "50К-10", "100К-10");
+    for(int i = 0;i<3;i++)
+    {
+        switch (i)
+        {
+            case 0:
+                printf("|%10s|", "Пузырёк");
+                break;
+            case 1:
+                printf("|%10s|", "Выбором");
+                break;
+            case 2:
+                printf("|%10s|", "Вставками");
+                break;
+            default:
+                break;
+        }
+        for (int j = i;j < 9;j += 3)
+            printf("%10.3f|", TimeAllPos[j]);
+        for (int j = i;j < 27;j += 3)
+            printf("%10.3f|", TimeAllPar[j]);
+        printf("\n");
+    }
    
 }
 
