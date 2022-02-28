@@ -181,9 +181,11 @@ int main()
 {
     setlocale(LC_ALL, "ru");
     srand(1);
-    float TimeAll[18];
-    int TimeAllNow = 0;
-
+    float TimeAllPos[9];
+    float TimeAllPar[27];
+    int TimeAllPosNow = 0;
+    int TimeAllParNow = 0;
+    bool par = false;
     for (int g = 0; g < 3; g++)
     {
         numb = g;
@@ -248,8 +250,8 @@ int main()
                 }
 
                 cout << "Среднее время последовательной сортировки - " << tm / 5.0 << endl << endl;
-                TimeAll[TimeAllNow] = tm / 5.0;
-                TimeAllNow += 1;
+                TimeAllPos[TimeAllPosNow] = tm / 5.0;
+                TimeAllPosNow += 1;
             }
 
             for (int i = 0; i < ArrayCount; i++)
@@ -270,27 +272,27 @@ int main()
                     {
                     case 0:
 
-                        printf("Сортировка пузырьком  - %.3f", aa);
+                        printf("Сортировка пузырьком - %.3f", aa);
                         break;
                     case 1:
 
-                        printf("Сортировка выбором    - %.3f", aa);
+                        printf("Сортировка выбором   - %.3f", aa);
                         break;
                     case 2:
 
-                        printf("Быстрая сортировка    - %.3f", aa);
+                        printf("Сортировка вставками  - %.3f", aa);
                         break;
                     default:
                         break;
-                    }
+                    }   
                     tm += aa;
                     if (equal(array[i], array[i] + SIZE[f], StaticArraySort)) cout << " Сортировка выполнена верно!\n";
                     else cout << " Сортировка выполнена не верно!\n";
 
                 }
                 cout << "Среднее время параллельной   сортировки - " << tm / 5.0 << endl << endl;
-                TimeAll[TimeAllNow] = tm / 5.0;
-                TimeAllNow += 1;
+                TimeAllPar[TimeAllParNow] = tm / 5.0;
+                TimeAllParNow += 1;
             }
 
 
@@ -304,10 +306,6 @@ int main()
         }
     }
   
-    for (int i = 0; i < 18; i++)
-    {
-        printf("Время - %.3f", TimeAll[i]);
-        cout << endl;
-    }
+   
 }
 
