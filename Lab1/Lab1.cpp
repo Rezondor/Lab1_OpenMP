@@ -9,7 +9,7 @@
 using namespace std;
 
 const int SIZE[] = { 10000, 50000, 100000 };
-const int THREADCOUNT[] = { 2, 5,10 };
+const int THREADCOUNT[] = { 2, 4, 8 };
 const int RANDOM = 100000;
 const int ArrayCount = 3;
 static int cn = 0; 
@@ -72,7 +72,7 @@ void SortParallel(int data[], int lenD)
     }
     vector<int> *thread = new vector<int>[THREADCOUNT[numb]];
     int rnd = RANDOM / THREADCOUNT[numb];
-    for (size_t i = 0; i < THREADCOUNT[numb]; i++)
+    for (int i = 0; i < THREADCOUNT[numb]; i++)
     {
         int start = i * rnd;
         int end = (i + 1) * rnd;
@@ -102,12 +102,12 @@ void SortParallel(int data[], int lenD)
         TypeSort[cn % 3](arr, sz);
         
 
-        for (size_t j = 0; j < i; j++)
+        for (int j = 0; j < i; j++)
         {
             start += thread[j].size();
         }
 
-        for (size_t j = start, k = 0; j < sz + start; j++, k++)
+        for (int j = start, k = 0; j < sz + start; j++, k++)
         {
             data[j] = arr[k];
 
@@ -128,7 +128,7 @@ void Print(int a[],int size)
 }
 void Completion(int first[], int second[], int size)
 {
-    for (size_t i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
     {
         int a = first[i];
         second[i] = a;
@@ -265,7 +265,7 @@ int main()
         }
     }
     printf("\n|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|%10s|\n",
-        " ", "10К-1", "50К-1", "100К-1", "10К-2", "50К-2", "100К-2", "10К-5", "50К-5", "100К-5", "10К-10", "50К-10", "100К-10");
+        " ", "10К-1", "50К-1", "100К-1", "10К-2", "50К-2", "100К-2", "10К-4", "50К-4", "100К-4", "10К-8", "50К-8", "100К-8");
     for(int i = 0;i<3;i++)
     {
         switch (i)
